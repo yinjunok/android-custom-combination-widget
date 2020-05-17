@@ -12,11 +12,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 class Header: ConstraintLayout {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        val typedArray = context?.obtainStyledAttributes(attrs, R.styleable.Header)
-        headerText = typedArray?.getString(R.styleable.Header_header_text) ?: "标题"
-        title.text = headerText
-        // 使用完后, 必须释放资源
-        typedArray?.recycle()
+        context?.let {
+            val typedArray = it.obtainStyledAttributes(attrs, R.styleable.Header)
+            headerText = typedArray.getString(R.styleable.Header_header_text) ?: "标题"
+            title.text = headerText
+            // 使用完后, 必须释放资源
+            typedArray.recycle()
+        }
     }
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
